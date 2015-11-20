@@ -1,6 +1,7 @@
 __author__ = 'Taras'
 # -*- coding: utf-8 -*-
 from random import choice
+from colors import bcolors
 
 class word:
     def __init__(self,path):
@@ -11,8 +12,7 @@ class word:
         while len(self.words) < self.count: #choosing right quantity of words
             self.words.update([choice(list(self.wordList))]) #avoiding repeats
         self.words = {x:self.wordList.get(x) for x in self.words} #making dictionary
-    def check(self,word):
-        return bool(self.words.get(word))
+
 class game:
     def __init__(self,path,count=10): #initializing game
         self.words = word(path)
@@ -20,10 +20,12 @@ class game:
     def translate(self):
         print("-"*5,"Start","-"*5)
         self.rightAnswersCount=0
-        for x in self.words.words.values(): #playing game
-            print("Word:\t\t\t" + x)
-            if self.words.check(str(input("Your answer:\t"))): self.rightAnswersCount +=1 #if correct answer - increment player's result
-
+        for w,t in self.words.words.items(): #playing game
+            print("Word:\t\t\t" + t)
+            if w == str(input("Your answer:\t")):
+                self.rightAnswersCount +=1 #if correct answer - increment player's result
+                print("Correct!")
+            else: print(bcolors.FAIL + "Incorrect!" + bcolors.ENDC + " Correct answer: ",w)
         print("Your result is: ",int(self.rightAnswersCount*100/self.words.count), "%") #show player's result
         print("-"*5,"End","-"*5)
 
