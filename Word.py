@@ -64,11 +64,11 @@ if __name__ == '__main__':
     game = game('test.tsv')
     player = player(input("Enter your name: "))
     while 1:
-        mode = str(input("Enter your mode: "))
+        mode = str(input("Enter your mode (print/choose): "))
         try: player.start(mode)
         except: print(bcolors.FAIL+"Wrong mode name!"+bcolors.ENDC)
         player.end()
         if not bool(int(input("Try again? (0/1): "))): break
     print('*'*10,"Game over",'*'*10)
-    print("Thank tou for playing. Your statistics below")
+    print("Thank tou for playing. Your statistics' below")
     player.showStatistics()
