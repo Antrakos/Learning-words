@@ -38,7 +38,7 @@ class game:
         words = list(words)
         print(words)
         try:
-            if t == words[int(input("Your answer: "))+1]:
+            if t == words[int(input("Your answer:\t"))-1]:
                 self.rightAnswersCount +=1 #if correct answer - increment player's result
                 print(bcolors.HEADER+"Correct!"+bcolors.ENDC)
             else: print(bcolors.FAIL + "Incorrect!" + bcolors.ENDC + " Correct answer: ",bcolors.OKBLUE+t+bcolors.ENDC)
@@ -47,12 +47,28 @@ class game:
 class player:
     def __init__(self,name):
         self.name = name
-    def start(self):
+        self.statistics = []
+    def start(self,mode):
         print("-"*5,"Start","-"*5)
-        game.print()
+        game.play(mode)
     def end(self):
+        self.statistics +=[game.rightAnswersCount*100/game.words.count,]
         print("-"*5,"End","-"*5)
+    def showStatistics(self):
+        print("Full statistics: ",self.statistics)
+        print("Average: ", sum(self.statistics)/len(self.statistics))
+        print("Max: ", max(self.statistics))
+        print("Min: ", min(self.statistics))
 
 if __name__ == '__main__':
     game = game('test.tsv')
-    game.play("choose")
+    player = player(input("Enter your name: "))
+    while 1:
+        mode = str(input("Enter your mode: "))
+        try: player.start(mode)
+        except: print(bcolors.FAIL+"Wrong mode name!"+bcolors.ENDC)
+        player.end()
+        if not bool(int(input("Try again? (0/1): "))): break
+    print('*'*10,"Game over",'*'*10)
+    print("Thank tou for playing. Your statistics below")
+    player.showStatistics()
