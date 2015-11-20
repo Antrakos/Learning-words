@@ -24,7 +24,7 @@ class game:
             print("Word:\t\t\t" + t)
             if w == str(input("Your answer:\t")):
                 self.rightAnswersCount +=1 #if correct answer - increment player's result
-                print("Correct!")
+                print(bcolors.HEADER+"Correct!"+bcolors.ENDC)
             else: print(bcolors.FAIL + "Incorrect!" + bcolors.ENDC + " Correct answer: ",bcolors.OKBLUE+w+bcolors.ENDC)
         print("Your result is: ",int(self.rightAnswersCount*100/self.words.count), "%") #show player's result
         print("-"*5,"End","-"*5)
