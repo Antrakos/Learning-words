@@ -24,7 +24,7 @@ class word:
         except sqlite3.OperationalError: pass
         # End of creation
         #Start of insertion
-        self.wordList = {x.rstrip().split('\t')[2].lower():x.rstrip().split('\t')[3] for x in open(path,'r')} #read all words from file
+        self.wordList = {x.encode("windows-1251").decode("utf-8").rstrip().split('\t')[2].lower():x.encode("windows-1251").decode("utf-8").rstrip().split('\t')[3] for x in open(path,'r')} #read all words from file
         for w,t in self.wordList.items():
             if not list(self.conn.execute("SELECT * FROM words WHERE word='"+w+"'")):
                 self.conn.execute("INSERT INTO words (word,translation) VALUES (?,?)", (w,t))
